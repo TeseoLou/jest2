@@ -7,6 +7,8 @@ let game = {
     currentGame: [],
     // An array to track the moves entered by the player.
     playerMoves: [],
+    // An array of available button IDs representing game choices.
+    choices: ["button1", "button2", "button3", "button4"],
 };
 
 /*Export the game object using module.exports so it can be imported in the test file.
