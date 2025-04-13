@@ -46,4 +46,10 @@ describe("game object contains correct keys", () => {
         This will initially fail since 'choices' hasn't been added yet. */
         expect("choices" in game).toBe(true);
     });
+    // Test to check that the 'choices' array in the game object contains the correct button IDs.
+    test("choices contain correct ids", () => {
+        /* Use toEqual to compare the array's content with the expected values.
+        This test will fail if any of the elements or the order is incorrect. */
+        expect(game.choices).toEqual(["button1", "button2", "button3", "button4"]);
+    });
 });
