@@ -3,6 +3,10 @@
  */
 // Ensures that Jest uses a mock browser environment (JSDOM), enabling access to the DOM.
 
+/* Export the game object using module.exports so it can be imported in the test file.
+We use curly braces because we'll be exporting multiple things from this file later. */
+const { game } = require("../game");
+
 beforeAll(() => {
     // Import the built-in Node.js file system module to read files from disk.
     let fs = require("fs");
