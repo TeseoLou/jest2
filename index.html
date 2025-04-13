@@ -1,0 +1,56 @@
+<!-- Declares the document type and HTML version -->
+<!DOCTYPE html>
+
+<!-- Sets the language of the document to English -->
+<html lang="en">
+
+<head>
+    <!-- Defines the character encoding as UTF-8 -->
+    <meta charset="UTF-8">
+
+    <!-- Ensures the page is responsive and scales correctly on different devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Sets the title of the webpage shown in the browser tab -->
+    <title>Jest Simon Game</title>
+
+    <!-- Optimizes loading of Google Fonts by preconnecting to the font resource -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <!-- Loads the 'Montserrat' font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <!-- Links to the external CSS file for custom styling -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- First container: holds the game titles -->
+    <div class="container">
+        <!-- Main title of the game -->
+        <h1>simon</h1>
+
+        <!-- Subtitle or description -->
+        <h2>memory game</h2>
+    </div>
+
+    <!-- Second container: holds the game interface -->
+    <div class="container">
+        <!-- Four colored buttons that the user interacts with -->
+        <div data-listener="false" class="circle circle1" id="button1"></div>
+        <div data-listener="false" class="circle circle2" id="button2"></div>
+        <div data-listener="false" class="circle circle3" id="button3"></div>
+        <div data-listener="false" class="circle circle4" id="button4"></div>
+
+        <!-- Score display box -->
+        <div class="scorebox" id="score">0</div>
+
+        <!-- New game button that calls newGame() when clicked -->
+        <button class="button" onclick="newGame()">new game</button>
+    </div>
+
+    <!-- Links the JavaScript file that will contain the game logic -->
+    <script src="scripts/game.js"></script>
+</body>
+
+</html>
