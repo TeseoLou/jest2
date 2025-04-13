@@ -28,4 +28,10 @@ describe("game object contains correct keys", () => {
         This will initially fail if the 'game' object or 'score' key doesn't exist yet */
         expect("score" in game).toBe(true);
     });
+    // Test to verify that the game object includes a key named 'currentGame'.
+    test("currentGame key exists", () => {
+        /* Use the 'in' operator to check if 'currentGame' is a property of the game object.
+        This will initially fail if the 'game' object or 'currentGame' key doesn't exist yet */
+        expect("currentGame" in game).toBe(true);
+    });
 });
