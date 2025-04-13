@@ -40,4 +40,10 @@ describe("game object contains correct keys", () => {
         This will initially fail since 'playerMoves' hasn't been added yet. */
         expect("playerMoves" in game).toBe(true);
     });
+    // Test to verify that the game object includes a key named 'choices'.
+    test("choices key exists", () => {
+        /* Use the 'in' operator to check if 'choices' is a property of the game object.
+        This will initially fail since 'choices' hasn't been added yet. */
+        expect("choices" in game).toBe(true);
+    });
 });
