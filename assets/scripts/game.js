@@ -5,6 +5,8 @@ let game = {
     score: 0,
     // An array to track the sequence of computer-generated moves.
     currentGame: [],
+    // An array to track the moves entered by the player.
+    playerMoves: [],
 };
 
 /*Export the game object using module.exports so it can be imported in the test file.
