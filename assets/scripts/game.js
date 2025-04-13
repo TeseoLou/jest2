@@ -1,7 +1,10 @@
 /* Define an object to hold the game's current state.
 For now, it only contains the 'score' key set to 0. */
 let game = {
+    // The player's score, starting at 0.
     score: 0,
+    // An array to track the sequence of computer-generated moves.
+    currentGame: [],
 };
 
 /*Export the game object using module.exports so it can be imported in the test file.
