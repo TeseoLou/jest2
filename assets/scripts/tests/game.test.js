@@ -14,4 +14,14 @@ beforeAll(() => {
     document.write(fileContents);
     // Close the document to complete the DOM initialization.
     document.close();
-});s
+});
+
+// Group of related tests to check the structure of the game object.
+describe("game object contains correct keys", () => {
+    // Test to verify that the game object includes a key named 'score'.
+    test("score key exists", () => {
+        /* Use the 'in' operator to check if 'score' is a property of the game object.
+        This will initially fail if the 'game' object or 'score' key doesn't exist yet */
+        expect("score" in game).toBe(true);
+    });
+});
