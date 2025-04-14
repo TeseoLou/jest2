@@ -11,6 +11,12 @@ let game = {
     choices: ["button1", "button2", "button3", "button4"],
 };
 
-/*Export the game object using module.exports so it can be imported in the test file.
-We use curly braces because we'll be exporting multiple things from this file later. */
-module.exports = { game };
+// Define a function that resets the game state for a new game.
+function newGame() {
+    // Reset the score to zero at the start of a new game.
+    game.score = 0;
+}
+
+// Export both the game object and the newGame function.
+// This allows them to be used in the test file and elsewhere in the project.
+module.exports = { game, newGame };
