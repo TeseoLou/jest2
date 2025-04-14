@@ -71,11 +71,18 @@ describe("newGame works correctly", () => {
     test("should clear the currentGame array", () => {
         // Temporarily add a fake move to simulate an in-progress game
         game.currentGame = ["button1"];
-
         // Call newGame which should clear the array
         newGame();
-
         // Expect the currentGame array to now be empty
         expect(game.currentGame).toEqual([]);
+    });
+    // Test to check if playerMoves is reset to an empty array
+    test("should clear the playerMoves array", () => {
+        // Simulate existing player moves
+        game.playerMoves = ["button2"];
+        // Call newGame to reset the game state
+        newGame();
+        // Check that playerMoves is now empty
+        expect(game.playerMoves).toEqual([]);
     });
 });
