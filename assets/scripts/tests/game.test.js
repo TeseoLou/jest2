@@ -63,4 +63,9 @@ describe("newGame works correctly", () => {
         // Call the newGame function, which should reset the game state.
         newGame();
     });
+    // Test to check that newGame resets the score to 0.
+    test("should set the game score to zero", () => {
+        // After calling newGame (in beforeAll), check that the score was reset.
+        expect(game.score).toEqual(0);
+    });
 });
