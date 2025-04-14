@@ -15,8 +15,10 @@ let game = {
 function newGame() {
     // Reset the score to zero at the start of a new game.
     game.score = 0;
-    // Clear the currentGame array
+    // Clear the currentGame array.
     game.currentGame = [];
+    // Clear the playerMoves array.
+    game.playerMoves = []; 
 }
 
 // Export both the game object and the newGame function.
