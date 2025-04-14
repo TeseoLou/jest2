@@ -53,3 +53,14 @@ describe("game object contains correct keys", () => {
         expect(game.choices).toEqual(["button1", "button2", "button3", "button4"]);
     });
 });
+
+// Group of tests that check if the newGame function works as expected.
+describe("newGame works correctly", () => {
+    // This setup runs once before all tests in this describe block.
+    beforeAll(() => {
+        // Simulate an existing score to ensure newGame resets it properly.
+        game.score = 42;
+        // Call the newGame function, which should reset the game state.
+        newGame();
+    });
+});
