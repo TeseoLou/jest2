@@ -71,14 +71,10 @@ describe("newGame works correctly", () => {
         // After calling newGame (in beforeAll), check that the score was reset.
         expect(game.score).toEqual(0);
     });
-    // Test to check if currentGame is reset to an empty array
-    test("should clear the currentGame array", () => {
-        // Temporarily add a fake move to simulate an in-progress game
-        game.currentGame = ["button1"];
-        // Call newGame which should clear the array
-        newGame();
-        // Expect the currentGame array to now be empty
-        expect(game.currentGame.length).toEqual(0);
+    // Test that calling newGame adds one turn to the currentGame array
+    test("should add one move to the currentGame array", () => {
+        // After calling newGame in beforeAll, currentGame should contain one element
+        expect(game.currentGame.length).toBe(1);
     });
     // Test to check if playerMoves is reset to an empty array
     test("should clear the playerMoves array", () => {
