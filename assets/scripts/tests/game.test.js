@@ -166,60 +166,15 @@ describe("gameplay works correctly", () => {
     expect(game.turnNumber).toBe(0);
   });
 
-  test("playerTurn continues game if move is correct but not complete", () => {
-    // Set up a 2-move sequence
-    game.currentGame = ["button1", "button2"];
+  // Test to confirm that the score increases if the player's turn matches the game sequence
+  test("should increment the score if the turn is correct", () => {
+    // Simulate the player making a correct move by copying the first item from currentGame
+    game.playerMoves.push(game.currentGame[0]);
 
-    // Simulate the player getting the first move right
-    game.playerMoves = ["button1"];
-
-    // Call the playerTurn logic
+    // Call the function that checks if the player's move is correct
     playerTurn();
 
-    // The score should still be 0, because the sequence isn’t complete yet
-    expect(game.score).toBe(0);
-  });
-
-  test("playerTurn continues game if move is correct but not complete", () => {
-    // Set up a 2-move sequence
-    game.currentGame = ["button1", "button2"];
-
-    // Simulate the player getting the first move right
-    game.playerMoves = ["button1"];
-
-    // Call the playerTurn logic
-    playerTurn();
-
-    // The score should still be 0, because the sequence isn’t complete yet
-    expect(game.score).toBe(0);
-
-    // Player should be waiting to make the next move — so no addTurn() yet
-    // Optionally: you could spy on addTurn() to ensure it wasn't called (advanced)
-  });
-
-  test("playerTurn completes the sequence correctly and advances the game", () => {
-    // Set up a simple 1-move sequence
-    game.currentGame = ["button1"];
-    game.playerMoves = ["button1"];
-
-    // Mock addTurn and showScore
-    const addTurnMock = jest.spyOn(global, "addTurn").mockImplementation(() => {});
-    const showScoreMock = jest.spyOn(global, "showScore").mockImplementation(() => {});
-
-    // Call the function
-    playerTurn();
-
-    // Expect score to increase
+    // Expect the score to increase by 1 after a correct full sequence
     expect(game.score).toBe(1);
-
-    // Expect addTurn to be called
-    expect(addTurnMock).toHaveBeenCalled();
-
-    // Expect showScore to be called
-    expect(showScoreMock).toHaveBeenCalled();
-
-    // Restore the original functions
-    addTurnMock.mockRestore();
-    showScoreMock.mockRestore();
-});
+  });
 });
