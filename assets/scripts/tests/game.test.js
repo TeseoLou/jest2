@@ -14,6 +14,9 @@ const {
 } = require("../game");
 // Import the necessary game functions and state object from the game module.
 
+// Mock the window.alert function to prevent actual alerts during tests and allow us to track if it's called
+jest.spyOn(window, "alert").mockImplementation(() => {});
+
 beforeAll(() => {
   // Load the HTML structure into jsdom before all tests run.
   let fs = require("fs"); // Import Node's file system module
