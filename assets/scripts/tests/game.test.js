@@ -91,6 +91,6 @@ describe("newGame works correctly", () => {
     });
     // Test that the DOM score is reset to "0"
     test("should display 0 with the element with the id of score", () => {
-        expect(document.getElementById("score").innertext).toEqual(0);
+        expect(document.getElementById("score").innerText).toEqual(0);
     })
 });

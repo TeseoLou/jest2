@@ -18,10 +18,12 @@ function newGame() {
     // Clear the currentGame array.
     game.currentGame = [];
     // Clear the playerMoves array.
-    game.playerMoves = []; 
+    game.playerMoves = [];
+    // Update the DOM score display.
+    showScore(); 
 }
 
-// Function to update the score in the DOM
+// Function to update the score in the DOM.
 function showScore() {
     document.getElementById("score").innerText = game.score;
 }
