@@ -39,8 +39,8 @@ function addTurn() {
     // Select a random choice from the game.choices array and add it to currentGame
     game.currentGame.push(game.choices[Math.floor(Math.random() * 4)]);
 
-    // Show the sequence visually (placeholder, not yet implemented)
-    // showTurns();
+    // Show the sequence visually 
+    showTurns();
 };
 
 // Function to visually light up a button in the DOM
