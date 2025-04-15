@@ -21,6 +21,11 @@ function newGame() {
     game.playerMoves = []; 
 }
 
+// Function to update the score in the DOM
+function showScore() {
+    document.getElementById("score").innerText = game.score;
+}
+
 // Export both the game object and the newGame function.
 // This allows them to be used in the test file and elsewhere in the project.
-module.exports = { game, newGame };
+module.exports = { game, newGame, showScore };
