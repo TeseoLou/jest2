@@ -4,7 +4,7 @@
 // Ensures that Jest uses a mock browser environment (JSDOM), enabling access to the DOM.
 
 // Import both the game object and the newGame function from game.js
-const { game, newGame, showScore } = require("../game");
+const { game, newGame, showScore, addTurn } = require("../game");
 
 beforeAll(() => {
     // Import the built-in Node.js file system module to read files from disk.

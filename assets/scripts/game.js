@@ -21,6 +21,18 @@ function newGame() {
     game.playerMoves = [];
     // Update the DOM score display.
     showScore(); 
+    // Add the first move to the game sequence
+    addTurn();
+}
+
+// Function to add a new move to the game sequence
+function addTurn() {
+    // Reset the player's moves at the start of a new turn
+    game.playerMoves = [];
+    // Select a random button ID (0–3) and push it directly into the currentGame sequence
+    game.currentGame.push(game.choices[Math.floor(Math.random() * 4)]);
+    // Placeholder for function that will visually play the sequence (not implemented yet)
+    // showTurns();
 }
 
 // Function to update the score in the DOM.
@@ -30,4 +42,4 @@ function showScore() {
 
 // Export both the game object and the newGame function.
 // This allows them to be used in the test file and elsewhere in the project.
-module.exports = { game, newGame, showScore };
+module.exports = { game, newGame, showScore, addTurn };
