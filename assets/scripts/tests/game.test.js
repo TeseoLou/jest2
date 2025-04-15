@@ -105,4 +105,13 @@ describe("gameplay works correctly", () => {
         // Simulate the start of a new turn by adding one move to the sequence.
         addTurn();
     });
+    // afterEach runs after every test in this block to ensure test isolation.
+    afterEach(() => {
+        // Reset the score after each test.
+        game.score = 0;
+        // Clear the computer's move sequence after each test.
+        game.currentGame = [];
+        // Clear the player's move sequence after each test.
+        game.playerMoves = [];
+    });
 });
