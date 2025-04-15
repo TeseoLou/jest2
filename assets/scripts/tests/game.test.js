@@ -87,6 +87,19 @@ describe("newGame works correctly", () => {
   test("should add one move to the computer's game array", () => {
     expect(game.currentGame.length).toBe(1);
   });
+
+  // Test to ensure that all circle buttons are set to listen for user input after newGame runs
+  test("expect data-listener to be true", () => {
+    // Select all elements with the class 'circle' (i.e. the game buttons)
+    const elements = document.getElementsByClassName("circle");
+
+    // Loop through each button to check its data-listener attribute
+    for (let element of elements) {
+      // Expect the data-listener attribute to be set to "true"
+      // This allows the buttons to register clicks during gameplay
+      expect(element.getAttribute("data-listener")).toEqual("true");
+    }
+  });
 });
 
 // Group of tests related to game functionality during play
