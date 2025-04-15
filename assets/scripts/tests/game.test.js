@@ -112,6 +112,7 @@ describe("gameplay works correctly", () => {
         // Verify that the "light" class was added to the button's classList
         expect(button.classList).toContain("light");
     });
+    
     // Test to check that the showTurns function resets the game's turn counter
     test("showTurns should update game.turnNumber", () => {
         // Manually set turnNumber to a non-zero value to simulate an in-progress state

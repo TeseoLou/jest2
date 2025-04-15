@@ -29,7 +29,7 @@ function newGame() {
 
     // Start the first round by adding a random turn
     addTurn();
-}
+};
 
 // Function to add a new move to the currentGame sequence
 function addTurn() {
@@ -41,7 +41,7 @@ function addTurn() {
 
     // Show the sequence visually (placeholder, not yet implemented)
     // showTurns();
-}
+};
 
 // Function to visually light up a button in the DOM
 function lightsOn(circ) {
@@ -52,12 +52,32 @@ function lightsOn(circ) {
     setTimeout(() => {
         document.getElementById(circ).classList.remove("light");
     }, 400);
-}
+};
 
 // Function to update the score display in the DOM
 function showScore() {
     document.getElementById("score").innerText = String(game.score);
-}
+};
+
+// Function to play back the computer's sequence of moves one at a time
+function showTurns() {
+    // Reset the turn number to start from the beginning of the sequence
+    game.turnNumber = 0;
+
+    // Use setInterval to play through each move in the currentGame array
+    let turns = setInterval(() => {
+        // Light up the current button in the sequence
+        lightsOn(game.currentGame[game.turnNumber]);
+
+        // Move to the next item in the sequence
+        game.turnNumber++;
+
+        // If we've shown all the moves, stop the interval
+        if (game.turnNumber >= game.currentGame.length) {
+            clearInterval(turns);
+        }
+    }, 800); // Delay of 800ms between each move
+};
 
 // Export all necessary functions and state for testing and interaction
 module.exports = { game, newGame, showScore, addTurn, lightsOn };
