@@ -192,4 +192,19 @@ describe("gameplay works correctly", () => {
     // Check that the alert function was called with the expected message
     expect(window.alert).toBeCalledWith("Wrong move!");
   });
+
+  test("should alert the user if a circle is clicked before the game starts", () => {
+    // Set gameStarted to false explicitly
+    gameModule.game.gameStarted = false;
+
+    // Simulate user clicking a button before game starts
+    const button = document.getElementById("button1");
+    button.click();
+  
+    // Expect the alert to be triggered
+    expect(window.alert).toHaveBeenCalledWith("Please start the game first");
+  
+    // Clean up
+    window.alert.mockRestore();
+  });
 });
