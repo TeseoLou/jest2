@@ -1,154 +1,225 @@
 /**
  * @jest-environment jsdom
  */
-// Use jsdom to simulate a browser environment for DOM interaction in tests
+// Instructs Jest to run this test file in a browser-like environment using jsdom.
 
-// Import required Node modules
-const fs = require("fs");
-const path = require("path");
+const {
+  game,
+  newGame,
+  showScore,
+  addTurn,
+  lightsOn,
+  showTurns,
+  playerTurn,
+} = require("../game");
+// Import the necessary game functions and state object from the game module.
 
-// Import the entire game module so we can spy on its functions and access its state
-const gameModule = require("../game");
-
-// Load the HTML content into the DOM before all tests run
 beforeAll(() => {
-  const fileContents = fs.readFileSync(path.resolve(__dirname, "../../index.html"), "utf-8");
-  document.open();
-  document.write(fileContents);
-  document.close();
+  // Load the HTML structure into jsdom before all tests run.
+  let fs = require("fs"); // Import Node's file system module
+  let fileContents = fs.readFileSync("index.html", "utf-8"); // Read the HTML file as a string
+  document.open(); // Clear any existing document content
+  document.write(fileContents); // Write the HTML content to the mock DOM
+  document.close(); // Finalize writing to the document
 });
 
-// Group of tests to check the structure of the game object
+// Group of tests to confirm the game object contains the expected structure
 describe("game object contains correct keys", () => {
+  // Test that 'score' key exists in the game object
   test("score key exists", () => {
-    expect("score" in gameModule.game).toBe(true);
+    expect("score" in game).toBe(true);
   });
 
+  // Test that 'currentGame' key exists in the game object
   test("currentGame key exists", () => {
-    expect("currentGame" in gameModule.game).toBe(true);
+    expect("currentGame" in game).toBe(true);
   });
 
+  // Test that 'playerMoves' key exists in the game object
   test("playerMoves key exists", () => {
-    expect("playerMoves" in gameModule.game).toBe(true);
+    expect("playerMoves" in game).toBe(true);
   });
 
+  // Test that 'choices' key exists in the game object
   test("choices key exists", () => {
-    expect("choices" in gameModule.game).toBe(true);
+    expect("choices" in game).toBe(true);
   });
 
+  // Test that the 'choices' array has the expected button IDs
   test("choices contain correct ids", () => {
-    expect(gameModule.game.choices).toEqual(["button1", "button2", "button3", "button4"]);
+    expect(game.choices).toEqual(["button1", "button2", "button3", "button4"]);
   });
 
+  // Test to verify that the game object includes a key named 'turnNumber'
   test("turnNumber key exists", () => {
-    expect("turnNumber" in gameModule.game).toBe(true);
+    // Use the 'in' operator to check if 'turnNumber' is a property of the game object
+    // This ensures the game can track progress when showing the turn sequence
+    expect("turnNumber" in game).toBe(true);
   });
 });
 
-// Tests to verify newGame function resets the game correctly
+// Group of tests to verify that the newGame function resets and sets up the game properly
 describe("newGame works correctly", () => {
-  // Set up a fake game state before running this block of tests
+  // Setup a mock in-progress game state before this block runs
   beforeAll(() => {
-    gameModule.game.score = 42;
-    gameModule.game.playerMoves = ["button1", "button2"];
-    gameModule.game.currentGame = ["button1", "button2"];
-    document.getElementById("score").innerText = "42";
-    gameModule.newGame(); // Call the function to reset the game
+    game.score = 42; // Set a fake score
+    game.playerMoves = ["button1", "button2"]; // Simulate some player inputs
+    game.currentGame = ["button1", "button2"]; // Simulate an active sequence
+    document.getElementById("score").innerText = "42"; // Fake score in the DOM
+    newGame(); // Run the function we're testing
   });
 
+  // Test that the score is reset to 0
   test("should set game score to zero", () => {
-    expect(gameModule.game.score).toEqual(0);
+    expect(game.score).toEqual(0);
   });
 
+  // Test that the DOM element with id="score" also displays "0"
   test("should display 0 for the element with id of score", () => {
     expect(document.getElementById("score").innerText).toEqual("0");
   });
 
+  // Test that playerMoves array is cleared
   test("should clear the player moves array", () => {
-    expect(gameModule.game.playerMoves.length).toBe(0);
+    expect(game.playerMoves.length).toBe(0);
   });
 
+  // Test that currentGame has one new move added after newGame
   test("should add one move to the computer's game array", () => {
-    expect(gameModule.game.currentGame.length).toBe(1);
+    expect(game.currentGame.length).toBe(1);
   });
 
+  // Test to ensure that all circle buttons are set to listen for user input after newGame runs
   test("expect data-listener to be true", () => {
+    // Select all elements with the class 'circle' (i.e. the game buttons)
     const elements = document.getElementsByClassName("circle");
+
+    // Loop through each button to check its data-listener attribute
     for (let element of elements) {
+      // Expect the data-listener attribute to be set to "true"
+      // This allows the buttons to register clicks during gameplay
       expect(element.getAttribute("data-listener")).toEqual("true");
     }
   });
 
   test("playerTurn detects incorrect move", () => {
-    gameModule.game.currentGame = ["button1"];
-    gameModule.game.playerMoves = ["button2"];
-    gameModule.playerTurn(); // Should not increase score
-    expect(gameModule.game.score).toBe(0);
+    // Simulate a known game sequence
+    game.currentGame = ["button1"];
+
+    // Simulate the player making the wrong move
+    game.playerMoves = ["button2"];
+
+    // Call the function to test
+    playerTurn();
+
+    // Expect the game to detect failure — customize this as needed
+    // Example: expect the score not to increase, or expect an alert
+    // For now, we'll expect score to remain 0 (assuming no point awarded on wrong move)
+    expect(game.score).toBe(0);
   });
 });
 
-// Tests that cover actual gameplay mechanics
+// Group of tests related to game functionality during play
 describe("gameplay works correctly", () => {
-  // Reset game state before each test
+  // Reset game state and add a starting move before each test
   beforeEach(() => {
-    gameModule.game.score = 0;
-    gameModule.game.currentGame = [];
-    gameModule.game.playerMoves = [];
-    gameModule.addTurn(); // Start each test with one move in the sequence
+    game.score = 0;
+    game.currentGame = [];
+    game.playerMoves = [];
+    addTurn(); // Simulate game starting with one move
   });
 
-  // Clear game state after each test for isolation
+  // Clear game state after each test to ensure test isolation
   afterEach(() => {
-    gameModule.game.score = 0;
-    gameModule.game.currentGame = [];
-    gameModule.game.playerMoves = [];
+    game.score = 0;
+    game.currentGame = [];
+    game.playerMoves = [];
   });
 
+  // Confirm that calling addTurn again appends a second move
   test("addTurn adds a new turn to the game", () => {
-    gameModule.addTurn(); // Adds a second move
-    expect(gameModule.game.currentGame.length).toBe(2);
+    addTurn(); // Add a second move
+    expect(game.currentGame.length).toBe(2);
   });
 
+  // Test to ensure the lightsOn function correctly applies the "light" class to the active button
   test("should add correct class to light up the buttons", () => {
-    const button = document.getElementById(gameModule.game.currentGame[0]);
-    gameModule.lightsOn(gameModule.game.currentGame[0]);
+    // Get the DOM element representing the button specified in the currentGame sequence
+    let button = document.getElementById(game.currentGame[0]);
+
+    // Call lightsOn with the button's ID to apply the "light" class
+    lightsOn(game.currentGame[0]);
+
+    // Verify that the "light" class was added to the button's classList
     expect(button.classList).toContain("light");
   });
 
+  // Test to check that the showTurns function resets the game's turn counter
   test("showTurns should update game.turnNumber", () => {
-    gameModule.game.turnNumber = 42; // Simulate old value
-    gameModule.showTurns(); // Should reset it to 0
-    expect(gameModule.game.turnNumber).toBe(0);
+    // Manually set turnNumber to a non-zero value to simulate an in-progress state
+    game.turnNumber = 42;
+
+    // Call the function that should reset the turn number
+    showTurns();
+
+    // Check if the turn number has been correctly reset to 0
+    expect(game.turnNumber).toBe(0);
   });
 
   test("playerTurn continues game if move is correct but not complete", () => {
-    gameModule.game.currentGame = ["button1", "button2"];
-    gameModule.game.playerMoves = ["button1"];
-    gameModule.playerTurn(); // Still in progress
-    expect(gameModule.game.score).toBe(0); // No score yet
+    // Set up a 2-move sequence
+    game.currentGame = ["button1", "button2"];
+
+    // Simulate the player getting the first move right
+    game.playerMoves = ["button1"];
+
+    // Call the playerTurn logic
+    playerTurn();
+
+    // The score should still be 0, because the sequence isn’t complete yet
+    expect(game.score).toBe(0);
+  });
+
+  test("playerTurn continues game if move is correct but not complete", () => {
+    // Set up a 2-move sequence
+    game.currentGame = ["button1", "button2"];
+
+    // Simulate the player getting the first move right
+    game.playerMoves = ["button1"];
+
+    // Call the playerTurn logic
+    playerTurn();
+
+    // The score should still be 0, because the sequence isn’t complete yet
+    expect(game.score).toBe(0);
+
+    // Player should be waiting to make the next move — so no addTurn() yet
+    // Optionally: you could spy on addTurn() to ensure it wasn't called (advanced)
   });
 
   test("playerTurn completes the sequence correctly and advances the game", () => {
-    // Setup a single correct move
-    gameModule.game.currentGame = ["button1"];
-    gameModule.game.playerMoves = ["button1"];
+    // Set up a simple 1-move sequence
+    game.currentGame = ["button1"];
+    game.playerMoves = ["button1"];
 
-    // Spy on addTurn and showScore
-    const addTurnMock = jest.spyOn(gameModule, "addTurn").mockImplementation(() => {});
-    const showScoreMock = jest.spyOn(gameModule, "showScore").mockImplementation(() => {});
+    // Mock addTurn and showScore
+    const addTurnMock = jest.spyOn(global, "addTurn").mockImplementation(() => {});
+    const showScoreMock = jest.spyOn(global, "showScore").mockImplementation(() => {});
 
-    // Run the function
-    gameModule.playerTurn();
+    // Call the function
+    playerTurn();
 
-    // Check if score was incremented
-    expect(gameModule.game.score).toBe(1);
+    // Expect score to increase
+    expect(game.score).toBe(1);
 
-    // Check if dependent functions were called
+    // Expect addTurn to be called
     expect(addTurnMock).toHaveBeenCalled();
+
+    // Expect showScore to be called
     expect(showScoreMock).toHaveBeenCalled();
 
-    // Restore original functions
+    // Restore the original functions
     addTurnMock.mockRestore();
     showScoreMock.mockRestore();
-  });
+});
 });
