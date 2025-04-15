@@ -9,7 +9,7 @@ let game = {
   // Tracks the player's score.
   score: 0,
 
-  // Tracks the turn number. 
+  // Tracks the turn number.
   turnNumber: 0,
 
   // Array of available button IDs representing the game inputs
@@ -26,6 +26,30 @@ function newGame() {
 
   // Reset the score
   game.score = 0;
+
+  // Loop through all elements with the class "circle" (the game buttons)
+  for (let circle of document.getElementsByClassName("circle")) {
+    // Check if this button hasn't already been set to listen for clicks
+    if (circle.getAttribute("data-listener") !== "true") {
+      // Add a click event listener to handle player input
+      circle.addEventListener("click", (e) => {
+        // Get the ID of the clicked button (e.g. "button1")
+        let move = e.target.getAttribute("id");
+
+        // Light up the button that was clicked
+        lightsOn(move);
+
+        // Record the move in the player's sequence
+        game.playerMoves.push(move);
+
+        // Check if the player's move matches the game sequence
+        playerTurn();
+      });
+
+      // Mark this element as already listening to prevent duplicate listeners
+      circle.setAttribute("data-listener", "true");
+    }
+  }
 
   // Update the DOM to reflect the reset score
   showScore();

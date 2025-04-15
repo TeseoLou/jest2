@@ -98,7 +98,7 @@ describe("newGame works correctly", () => {
       // Expect the data-listener attribute to be set to "true"
       // This allows the buttons to register clicks during gameplay
       expect(element.getAttribute("data-listener")).toEqual("true");
-    }
+    };
   });
 });
 
