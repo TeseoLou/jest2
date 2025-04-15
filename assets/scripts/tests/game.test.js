@@ -4,6 +4,7 @@
 // Ensures that Jest uses a mock browser environment (JSDOM), enabling access to the DOM.
 
 // Import both the game object and the newGame function from game.js
+const { beforeAll } = require("jest-circus");
 const { game, newGame, showScore, addTurn } = require("../game");
 
 beforeAll(() => {
@@ -89,4 +90,19 @@ describe("newGame works correctly", () => {
     test("should display 0 with the element with the id of score", () => {
         expect(document.getElementById("score").innerText).toEqual(0);
     })
+});
+
+// Describe block to group tests related to actual gameplay functionality.
+describe("gameplay works correctly", () => {
+    // beforeEach runs before every test in this describe block to set a clean game state.
+    beforeEach(() => {
+        // Reset the score before each test.
+        game.score = 0;
+        // Clear the computer's move sequence.
+        game.currentGame = [];
+        // Clear the player's move sequence.
+        game.playerMoves = [];
+        // Simulate the start of a new turn by adding one move to the sequence.
+        addTurn();
+    });
 });
