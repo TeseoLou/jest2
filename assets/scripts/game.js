@@ -107,23 +107,22 @@ function showTurns() {
 };
 
 function playerTurn() {
-    // Get the index of the player's last move
+    // Get the index of the most recent move
     let i = game.playerMoves.length - 1;
 
-    // Compare it to the same index in the computer's sequence
+    // If the current player move is incorrect, end the function
     if (game.playerMoves[i] !== game.currentGame[i]) {
-        // Wrong move – keep score at 0, or trigger a game over later
-        // Could add: alert("Wrong move!") or game.gameOver = true;
+        // (Optional: trigger game over logic here)
         return;
-    }
+    };
 
-    // If the move is correct AND the player completed the full sequence
+    // If the player has completed the entire sequence correctly
     if (game.playerMoves.length === game.currentGame.length) {
-        game.score++;         // Increase score
-        showScore();          // Update score in the DOM
-        addTurn();            // Start next round
-    }
-}
+        game.score++;        // Increase the score
+        showScore();         // Update the score in the DOM
+        addTurn();           // Add the next move and continue the game
+    };
+};
 
 // Export all necessary functions and state for testing and interaction
 module.exports = { game, newGame, showScore, addTurn, lightsOn, showTurns, playerTurn };
