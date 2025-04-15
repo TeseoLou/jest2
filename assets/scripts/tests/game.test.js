@@ -10,6 +10,7 @@ const {
   addTurn,
   lightsOn,
   showTurns,
+  playerTurn,
 } = require("../game");
 // Import the necessary game functions and state object from the game module.
 

@@ -126,4 +126,4 @@ function playerTurn() {
 }
 
 // Export all necessary functions and state for testing and interaction
-module.exports = { game, newGame, showScore, addTurn, lightsOn, showTurns };
+module.exports = { game, newGame, showScore, addTurn, lightsOn, showTurns, playerTurn };
