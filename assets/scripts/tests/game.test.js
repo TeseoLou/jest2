@@ -99,12 +99,13 @@ describe("newGame works correctly", () => {
       // Expect the data-listener attribute to be set to "true"
       // This allows the buttons to register clicks during gameplay
       expect(element.getAttribute("data-listener")).toEqual("true");
-    };
+    }
   });
+
   test("playerTurn detects incorrect move", () => {
     // Simulate a known game sequence
     game.currentGame = ["button1"];
-    
+
     // Simulate the player making the wrong move
     game.playerMoves = ["button2"];
 
@@ -115,7 +116,7 @@ describe("newGame works correctly", () => {
     // Example: expect the score not to increase, or expect an alert
     // For now, we'll expect score to remain 0 (assuming no point awarded on wrong move)
     expect(game.score).toBe(0);
-});
+  });
 });
 
 // Group of tests related to game functionality during play
@@ -163,5 +164,36 @@ describe("gameplay works correctly", () => {
 
     // Check if the turn number has been correctly reset to 0
     expect(game.turnNumber).toBe(0);
+  });
+
+  test("playerTurn continues game if move is correct but not complete", () => {
+    // Set up a 2-move sequence
+    game.currentGame = ["button1", "button2"];
+
+    // Simulate the player getting the first move right
+    game.playerMoves = ["button1"];
+
+    // Call the playerTurn logic
+    playerTurn();
+
+    // The score should still be 0, because the sequence isn’t complete yet
+    expect(game.score).toBe(0);
+  });
+
+  test("playerTurn continues game if move is correct but not complete", () => {
+    // Set up a 2-move sequence
+    game.currentGame = ["button1", "button2"];
+
+    // Simulate the player getting the first move right
+    game.playerMoves = ["button1"];
+
+    // Call the playerTurn logic
+    playerTurn();
+
+    // The score should still be 0, because the sequence isn’t complete yet
+    expect(game.score).toBe(0);
+
+    // Player should be waiting to make the next move — so no addTurn() yet
+    // Optionally: you could spy on addTurn() to ensure it wasn't called (advanced)
   });
 });
