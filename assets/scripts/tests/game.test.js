@@ -194,17 +194,20 @@ describe("gameplay works correctly", () => {
   });
 
   test("should alert the user if a circle is clicked before the game starts", () => {
-    // Set gameStarted to false explicitly
-    gameModule.game.gameStarted = false;
-
-    // Simulate user clicking a button before game starts
+    // Set the gameStarted flag directly
+    game.gameStarted = false;
+  
+    // Spy on alert to prevent it from showing and to track the call
+    jest.spyOn(window, "alert").mockImplementation(() => {});
+  
+    // Simulate clicking a circle before newGame starts
     const button = document.getElementById("button1");
     button.click();
   
-    // Expect the alert to be triggered
+    // Check that the alert is shown with the correct message
     expect(window.alert).toHaveBeenCalledWith("Please start the game first");
   
-    // Clean up
+    // Clean up the spy
     window.alert.mockRestore();
   });
 });
