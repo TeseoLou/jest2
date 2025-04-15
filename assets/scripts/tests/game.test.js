@@ -114,4 +114,11 @@ describe("gameplay works correctly", () => {
         // Clear the player's move sequence after each test.
         game.playerMoves = [];
     });
+    // Test to confirm that calling addTurn again adds a second move to the currentGame array.
+    test("addTurn adds a new turn to the game", () => {
+        // Call addTurn a second time (first was in beforeEach).
+        addTurn();
+        // After two calls, the currentGame array should contain 2 moves.
+        expect(game.currentGame.length).toBe(2);
+    });
 });
