@@ -84,7 +84,7 @@ function lightsOn(circ) {
 // Function to update the score display in the DOM
 function showScore() {
   document.getElementById("score").innerText = String(game.score);
-}
+};
 
 // Function to play back the computer's sequence of moves one at a time
 function showTurns() {
@@ -104,6 +104,25 @@ function showTurns() {
       clearInterval(turns);
     }
   }, 800); // Delay of 800ms between each move
+};
+
+function playerTurn() {
+    // Get the index of the player's last move
+    let i = game.playerMoves.length - 1;
+
+    // Compare it to the same index in the computer's sequence
+    if (game.playerMoves[i] !== game.currentGame[i]) {
+        // Wrong move – keep score at 0, or trigger a game over later
+        // Could add: alert("Wrong move!") or game.gameOver = true;
+        return;
+    }
+
+    // If the move is correct AND the player completed the full sequence
+    if (game.playerMoves.length === game.currentGame.length) {
+        game.score++;         // Increase score
+        showScore();          // Update score in the DOM
+        addTurn();            // Start next round
+    }
 }
 
 // Export all necessary functions and state for testing and interaction
