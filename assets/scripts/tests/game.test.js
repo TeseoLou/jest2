@@ -59,6 +59,10 @@ describe("newGame works correctly", () => {
     beforeAll(() => {
         // Simulate an existing score to ensure newGame resets it properly.
         game.score = 42;
+        game.playerMoves = ["button1", "button2"];
+        game.currentGame = ["button1", "button2"];
+        // Set the score in the DOM to a non-zero string
+        document.getElementById("score").innerText = "42";
         // Call the newGame function, which should reset the game state.
         newGame();
     });
@@ -74,7 +78,7 @@ describe("newGame works correctly", () => {
         // Call newGame which should clear the array
         newGame();
         // Expect the currentGame array to now be empty
-        expect(game.currentGame).toEqual([]);
+        expect(game.currentGame.length).toEqual(0);
     });
     // Test to check if playerMoves is reset to an empty array
     test("should clear the playerMoves array", () => {
@@ -83,6 +87,10 @@ describe("newGame works correctly", () => {
         // Call newGame to reset the game state
         newGame();
         // Check that playerMoves is now empty
-        expect(game.playerMoves).toEqual([]);
+        expect(game.playerMoves.length).toEqual(0);
     });
+    // Test that the DOM score is reset to "0"
+    test("should display 0 with the element with the id of score", () => {
+        expect(document.getElementById("score").innertext).toEqual(0);
+    })
 });
