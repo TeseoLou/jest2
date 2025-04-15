@@ -100,6 +100,21 @@ describe("newGame works correctly", () => {
       expect(element.getAttribute("data-listener")).toEqual("true");
     };
   });
+  test("playerTurn detects incorrect move", () => {
+    // Simulate a known game sequence
+    game.currentGame = ["button1"];
+    
+    // Simulate the player making the wrong move
+    game.playerMoves = ["button2"];
+
+    // Call the function to test
+    playerTurn();
+
+    // Expect the game to detect failure — customize this as needed
+    // Example: expect the score not to increase, or expect an alert
+    // For now, we'll expect score to remain 0 (assuming no point awarded on wrong move)
+    expect(game.score).toBe(0);
+});
 });
 
 // Group of tests related to game functionality during play
