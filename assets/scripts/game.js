@@ -118,11 +118,16 @@ function playerTurn() {
             game.score++;      // Increase the score
             showScore();       // Update the score in the DOM
             addTurn();         // Add a new move and begin the next round
-        }
+        };
 
-    }
-    
-}
+    } else {
+        // If the move was incorrect, alert the player
+        alert("Wrong move!");
+
+        // Restart the game from scratch
+        newGame();
+    };
+};
 
 // Export all necessary functions and state for testing and interaction
 module.exports = { game, newGame, showScore, addTurn, lightsOn, showTurns, playerTurn };
