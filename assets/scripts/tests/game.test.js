@@ -180,4 +180,16 @@ describe("gameplay works correctly", () => {
     // Expect the score to increase by 1 after a correct full sequence
     expect(game.score).toBe(1);
   });
+
+  // Test to ensure an alert is triggered if the player makes an incorrect move
+  test("should call an alert if the move is wrong", () => {
+    // Simulate an incorrect move by adding a wrong button ID to playerMoves
+    game.playerMoves.push("wrong");
+
+    // Call the function that checks the player's move
+    playerTurn();
+
+    // Check that the alert function was called with the expected message
+    expect(window.alert).toBeCalledWith("Wrong move!");
+  });
 });
