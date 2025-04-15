@@ -196,4 +196,30 @@ describe("gameplay works correctly", () => {
     // Player should be waiting to make the next move — so no addTurn() yet
     // Optionally: you could spy on addTurn() to ensure it wasn't called (advanced)
   });
+
+  test("playerTurn completes the sequence correctly and advances the game", () => {
+    // Set up a simple 1-move sequence
+    game.currentGame = ["button1"];
+    game.playerMoves = ["button1"];
+
+    // Mock addTurn and showScore
+    const addTurnMock = jest.spyOn(global, "addTurn").mockImplementation(() => {});
+    const showScoreMock = jest.spyOn(global, "showScore").mockImplementation(() => {});
+
+    // Call the function
+    playerTurn();
+
+    // Expect score to increase
+    expect(game.score).toBe(1);
+
+    // Expect addTurn to be called
+    expect(addTurnMock).toHaveBeenCalled();
+
+    // Expect showScore to be called
+    expect(showScoreMock).toHaveBeenCalled();
+
+    // Restore the original functions
+    addTurnMock.mockRestore();
+    showScoreMock.mockRestore();
+});
 });
